@@ -86,6 +86,48 @@ class ViewController: UIViewController {
             case mars
         }
         
+        let weeks = 465 / 7
+        print("There are \(weeks) weeks until the event.")
+        
+        let number = 49
+        let isMultiple = number.isMultiple(of: 7)
+        print(isMultiple)
+        
+        var re = 2 + 2 + 1.0
+        var kk:Double = 2.0 + 2
+        var ss = 56
+        ss += 4
+        
+        let firstName = "Paul"
+        let secondName = "Sophie"
+        let firstAge = 40
+        let secondAge = 10
+        
+        print(firstName == secondName)
+        print(firstName != secondName)
+        print(firstName < secondName)
+        print(firstName >= secondName)
+        
+        print(firstAge == secondAge)
+        print(firstAge != secondAge)
+        print(firstAge < secondAge)
+        print(firstAge >= secondAge)
+        
+        
+        let weather = "sunny"
+        
+        switch weather {
+        case "sunny":
+            print("Bring an umbrella")
+            fallthrough
+        case "snow":
+            print("Wrap up warm")
+            fallthrough
+        case "sunny1":
+            print("Wear sunscreen")
+        default:
+            print("Enjoy your day!")
+        }
         // Do any additional setup after loading the view.
     }
 
