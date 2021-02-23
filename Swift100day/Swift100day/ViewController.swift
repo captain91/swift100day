@@ -250,6 +250,30 @@ class ViewController: UIViewController {
         }
         print("Ready or not, here I come!")
         // Do any additional setup after loading the view.
+        
+        
+        func square(number: Int) -> Int{
+            print(number * number)
+            return number * number
+        }
+        
+       let s = square(number: 8)
+        
+        func doMoreMath() -> Int{
+            5 + 10
+        }
+        print(doMoreMath())
+        
+        func getUser() -> (first:String, last: String){
+            (first: "Taylor", last: "Swift")
+        }
+        let user = getUser()
+        print(user.first)
+        
+        func sayHello(to name: String){
+            print("hello, \(name)")
+        }
+        sayHello(to: "Taylor Swift")
     }
 
 
