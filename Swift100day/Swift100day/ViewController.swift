@@ -274,6 +274,57 @@ class ViewController: UIViewController {
             print("hello, \(name)")
         }
         sayHello(to: "Taylor Swift")
+        
+        func greet(_ person: String){
+            print("Hello ,\(person)")
+        }
+        
+        greet("Taylor")
+        
+        
+        func greetd(_ person: String, nicely: Bool = true){
+            if nicely == true {
+                print("Hello, \(person)!")
+            }else {
+                print("Oh no, it's \(person) again...")
+            }
+        }
+        
+        greetd("Taylor")
+        greetd("Taylor", nicely: false)
+        
+        func squarePro(numbers: Int...){
+            for number in numbers{
+                print("\(number) squared is \(number * number)")
+            }
+        }
+        
+        squarePro(numbers: 1,3,5,7,9,10)
+        
+        enum PasswordError: Error {
+            case obvious
+        }
+        
+        func checkPassword(_ password: String) throws -> Bool{
+            if password == "password"{
+                throw PasswordError.obvious
+            }
+            return true
+        }
+        
+        do {
+            try checkPassword("password")
+            print("That password is good!")
+        }catch {
+            print("You can't use that password.")
+        }
+        
+        func doubleInPlace(number: inout Int){
+            number *= 2
+        }
+        var myNum = 10
+        doubleInPlace(number: &myNum)
+        print(myNum)
     }
 
 
