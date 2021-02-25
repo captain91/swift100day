@@ -325,6 +325,202 @@ class ViewController: UIViewController {
         var myNum = 10
         doubleInPlace(number: &myNum)
         print(myNum)
+        
+        let driving = { (palce:String) in
+            print("I'm driving in my car")
+        }
+        driving("London")
+        
+//        var signAutograph(to name: String) = {
+//            print("To \(name), my #1 fan")
+//        }
+//
+//        signAutograph(to: "Lisa")
+        
+        let learnSwift = {
+            print("Closures are like functions")
+        }
+        learnSwift()
+        
+        var cleanRoom = { (name: String) in
+            print("I'm cleaning the \(name)")
+        }
+        
+        cleanRoom("kitchen")
+        
+        
+        let drivingWithReturn = { (place: String) -> String in
+            return "I'm going to \(place) in my car!"
+        }
+        
+        let message = drivingWithReturn("London")
+        print(message)
+        
+        func payment() -> Bool {
+            return true
+        }
+        
+        print("--------分割线--------")
+        let drivingP = {
+            print("I'm driving in my car to ping")
+        }
+        func travel(action: () -> Void){
+            print("I'm getting ready to go.")
+            action()
+            print("I arrived!")
+        }
+        travel(action: drivingP)
+        travel {
+            print("I'm new car")
+        }
+        
+        func animate(duration: Double, animations: ()->Void){
+            print("Starting a \(duration) second animation..")
+            animations()
+        }
+        
+        animate(duration: 3) {
+            print("Fade out the image")
+        }
+        
+        func goCamping(then action: () -> Void){
+            print("We're going camping!")
+            action()
+        }
+        
+        goCamping {
+            print("hhh")
+        }
+        
+        func travelParameters(action: (String) -> Void){
+            print("I'm getting ready to go.")
+            action("London")
+            print("I arrived!")
+        }
+        travelParameters { (place: String) in
+            print("I'm going to \(place) in my car!")
+        }
+        
+        func fix(item: String, payBill: (Int) -> Void){
+            print("I've fixed your \(item)")
+            payBill(450)
+        }
+        fix(item: "roof") { (bill: Int) in
+            print("You want $\(bill) for that? Outrageous!")
+        }
+        
+        func travelReturn(action: (String) -> String){
+            print("I'm getting ready to go.")
+            let description = action("London")
+            print(description)
+            print("I arrived!")
+        }
+        
+        travelReturn { (place: String) -> String in
+            return "I'm going to \(place) in my BYD."
+        }
+        travelReturn{
+            "I'm going to \($0) im my byd"
+        }
+//        travelReturn { (place) -> String in
+//            return "I'm going to \(place) in my Car!"
+//        }
+        
+        func reduce(_ values: [Int], using closure: (Int,Int) -> Int) -> Int{
+            var current = values[0]
+            for value in values[1...]{
+                current = closure(current,value)
+            }
+            return current
+        }
+        
+        let numbersArr = [10, 20, 30]
+        let sum = reduce(numbersArr) { (runningTotal, next) -> Int in
+            runningTotal + next
+        }
+        print(sum)
+        
+        let sum2 = reduce(numbersArr, using: *)
+        print(sum2)
+        
+        print("--------------sp-------------")
+        func travelTwo(action: (String, Int) -> String){
+            print("I'm getting ready to go.")
+            let description = action("London", 60)
+            print(description)
+            print("I arrived!")
+        }
+        
+        travelTwo {
+            "I'm going to \($0) at \($1) miles per hour."
+        }
+        
+        func travelReturnClosure() -> (String)->Void{
+            var counter = 1
+            print("counter \(counter)")
+            return {
+                print("\(counter) I'm going to \($0)")
+                counter += 1
+            }
+        }
+        let backResult = travelReturnClosure()
+        backResult("London")
+        backResult("HangKong")
+        travelReturnClosure()("HangKong")
+        
+        print(Int.random(in: 1...10))
+        
+        func getRandomNumber() -> Int {
+            Int.random(in: 1...10)
+        }
+        
+        func makeRandomGenerator() -> () -> Int{
+            let function = { Int.random(in: 1...10)}
+            return function
+        }
+        print(makeRandomGenerator())
+        
+        
+        func makeRandomNuberGenerator() -> () -> Int{
+            var previousNumber = 0
+            return {
+                var newNumber: Int
+                repeat {
+                    newNumber = Int.random(in: 1...3)
+                }while newNumber == previousNumber
+                previousNumber = newNumber
+                return newNumber
+            }
+        }
+        let g = makeRandomNuberGenerator()
+        for _ in 1...10{
+            print(".... \(g())")
+        }
+        
+        func findTallest() -> (String, Double) -> (String) {
+            var tallestName = ""
+            var tallestHeight = 0.0
+            return {
+                    if $1 > tallestHeight {
+                        tallestName = $0
+                        tallestHeight = $1
+                    }
+                    return tallestName
+                }
+        }
+        
+        func visitPlaces() -> (String) -> Void {
+            var places = [String: Int]()
+            return {
+                places[$0, default: 0] += 1
+                let timesVisited = places[$0, default: 0]
+                print("Number of times I've visited \($0): \(timesVisited).")
+            }
+        }
+        let visit = visitPlaces()
+        visit("London")
+        visit("New York")
+        visit("London")
     }
 
 
