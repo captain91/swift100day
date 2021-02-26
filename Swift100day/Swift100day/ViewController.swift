@@ -521,8 +521,66 @@ class ViewController: UIViewController {
         visit("London")
         visit("New York")
         visit("London")
+        
+        //8day
+        var tennis = Sport(name: "Tennis", isOlympicSport: true)
+        print(tennis.name)
+        tennis.name = "Lawn tennis"
+        print(tennis.name)
+        
+        let chessBoxing = Sport(name: "Chessboxing", isOlympicSport: false)
+        print(chessBoxing.olympicStatus)
+        
+        struct Progress {
+            var task: String
+            var amount: Int{
+                didSet {
+                    print("\(task) is now \(amount)% complete")
+                }
+            }
+        }
+        var progress = Progress(task: "Loading data", amount: 0)
+        progress.amount = 30
+        progress.amount = 80
+        progress.amount = 100
+        
+        let london = City(population: 9_000_000)
+        let taxes = london.collectTaxes()
+        print(taxes)
+        
+        var person = Person(name: "Ed")
+        print(person.name)
+        person.makeAnonymous()
+        print(person.name)
     }
+}
 
+struct Sport {
+    var name: String
+    var isOlympicSport: Bool
+    
+    var olympicStatus: String{
+        if isOlympicSport {
+            return "\(name) is an Olympic sport"
+        }else {
+            return "\(name) is not an Olympic sport"
+        }
+    }
+}
 
+struct City {
+    var population: Int
+    
+    func collectTaxes() -> Int{
+        return population * 1000
+    }
+}
+
+struct Person {
+    var name: String
+    
+    mutating func makeAnonymous(){
+        name = "Anonymous"
+    }
 }
 
