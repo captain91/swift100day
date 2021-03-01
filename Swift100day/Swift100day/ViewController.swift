@@ -552,6 +552,37 @@ class ViewController: UIViewController {
         print(person.name)
         person.makeAnonymous()
         print(person.name)
+        
+        let string = "Do or do not, there is no try."
+        print(string.count)
+        print(string.hasPrefix("Do"))
+        print(string.uppercased())
+        print(string.sorted())
+        
+        var toys = ["Woody"]
+        toys.append("Buzz")
+        toys.append("Zipe")
+        print(toys.firstIndex(of: "Buzz1"))
+        print(toys.sorted())
+        toys.remove(at: 0)
+    }
+}
+
+struct Student {
+    var name: String
+    var bestFriend: String
+    init(name: String, bestFriend: String) {
+        print("Enrolling \(name) in class...")
+        self.name = name
+        self.bestFriend = bestFriend
+    }
+}
+
+struct User {
+    var username: String
+    init() {
+        username = "Anonymous"
+        print("Creating a new user!")
     }
 }
 
