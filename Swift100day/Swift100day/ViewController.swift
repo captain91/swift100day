@@ -565,6 +565,18 @@ class ViewController: UIViewController {
         print(toys.firstIndex(of: "Buzz1"))
         print(toys.sorted())
         toys.remove(at: 0)
+        
+        
+//        let poppy = Dog(name: "Poppy", breed: "Poodle")
+        
+        let poodle = Poodle()
+        poodle.makeNoise()
+        
+        
+        for _ in 1...3 {
+            let person = PersonOne()
+            person.printGreeting()
+        }
     }
 }
 
@@ -615,3 +627,40 @@ struct Person {
     }
 }
 
+
+class Dog {
+//    var name: String
+//    var breed: String
+    
+//    init(name: String,breed: String) {
+//        self.name = name
+//        self.breed = breed
+//    }
+    
+    func makeNoise(){
+        print("Woof!")
+    }
+}
+
+class Poodle: Dog {
+    
+    override func makeNoise() {
+        print("Yip!")
+    }
+}
+
+class PersonOne {
+    var name = "John Doe"
+    init(){
+        print("\(name) is alive!")
+    }
+    
+    
+    func printGreeting() {
+        print("Hello, I'm \(name)")
+    }
+    
+    deinit {
+        print("\(name) is no more!")
+    }
+}
