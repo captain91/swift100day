@@ -577,6 +577,11 @@ class ViewController: UIViewController {
             let person = PersonOne()
             person.printGreeting()
         }
+        
+        
+        
+        let day11 = D11ViewController()
+        day11.showView()
     }
 }
 
