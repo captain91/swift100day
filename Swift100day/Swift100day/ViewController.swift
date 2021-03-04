@@ -582,6 +582,9 @@ class ViewController: UIViewController {
         
         let day11 = D11ViewController()
         day11.showView()
+        
+        let day12 = D12ViewController()
+        day12.viewDidLoad()
     }
 }
 
