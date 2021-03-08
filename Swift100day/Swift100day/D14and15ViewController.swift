@@ -7,7 +7,7 @@
 
 import UIKit
 
-class D14ViewController: UIViewController {
+class D14and15ViewController: UIViewController {
     
     enum WeatherType {
         case sun
@@ -61,7 +61,76 @@ class D14ViewController: UIViewController {
         
         var ay = Singer(name: "Taylor", age: 25)
         ay.sing()
+        
+        let fan = TaylorFan(name: "james", age: 34)
+        print(TaylorFan.favoriteSong)
+        
+        var taylorSwift = StudioAlbum(name: "Taylor Swift", studio: "The Castles Studios")
+        var fearless = StudioAlbum(name: "Speak Now", studio: "Aimeeland Studio")
+        var iTunesLvie = LiveAlbum(name: "iTunes Live from SoHo", location: "New York")
+        
+        var allAlbums:[Album] = [taylorSwift, fearless, iTunesLvie]
+        
+        for album in allAlbums {
+            print(album.getPerformance())
+            if let studioAlbum = album as? StudioAlbum {
+                print(studioAlbum.studio)
+            }else if let liveAlbum = album as? LiveAlbum {
+                print(liveAlbum.location)
+            }
+        }
+        
+        
+        let vw = UIView()
+        UIView.animate(withDuration: 0.5) {
+            vw.alpha = 0
+        }
+        
         // Do any additional setup after loading the view.
+    }
+    
+    class Album {
+        var name: String
+        
+        init(name: String) {
+            self.name = name
+        }
+        
+        func getPerformance() -> String {
+            return "The album \(name) sold lots"
+        }
+    }
+    
+    class StudioAlbum: Album{
+        var studio: String
+        
+        init(name: String, studio: String){
+            self.studio = studio
+            super.init(name: name)
+        }
+        
+        override func getPerformance() -> String {
+            return "The studio album \(name) sold lots"
+        }
+    }
+    
+    class LiveAlbum: Album {
+        var location: String
+        
+        init(name: String, location: String){
+            self.location = location
+            super.init(name: name)
+        }
+        
+        override func getPerformance() -> String {
+            return "The live album \(name) sold lots"
+        }
+    }
+    
+    struct TaylorFan {
+        static var favoriteSong = "Look What You Made Me Do"
+        var name: String
+        var age: Int
     }
     
     class Singer{
@@ -106,7 +175,11 @@ class D14ViewController: UIViewController {
         }
     }
     struct Person {
-        var clothes: String
+        var clothes: String{
+            willSet {
+//                updateUI(msg: "I'm changing from \(clothes) to \(newValue)")
+            }
+        }
         var shoes: String
         
         func describe(){
