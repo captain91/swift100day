@@ -8,83 +8,50 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate{
-    var webView: WKWebView!
-    var progressView: UIProgressView!
-    var websites = ["apple.com.cn", "baidu.com"]
+class ViewController: UITableViewController{
+    var websites = [String]()
     
-    override func loadView() {
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-        
-        progressView = UIProgressView(progressViewStyle: .default)
-        progressView.sizeToFit()
-        let progressButton = UIBarButtonItem(customView: progressView)
-        
-        toolbarItems = [progressButton, spacer, refresh]
-        navigationController?.isToolbarHidden = false
-        
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        
-        let url = URL(string: "https://" + websites[0])!
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Websites"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        websites += ["apple.com", "google.com", "baidu.com", "hackingwithswift.com"]
+                
     }
     
-    @objc func openTapped(){
-        let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
-        
-        for website in websites {
-            ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
+    @objc func addTapped(){
+        let vc = UIAlertController(title: "Website", message: nil, preferredStyle: .alert)
+        vc.addTextField { (textField) in
+            textField.placeholder = "Please input URL"
         }
-        
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(ac, animated: true)
-    }
-    
-    func openPage(action: UIAlertAction){
-        guard let actionTitle = action.title else {
-            return
-        }
-        guard let url = URL(string: "https://" + actionTitle) else { return }
-        webView.load(URLRequest(url: url))
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        title = webView.title
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "estimatedProgress" {
-            progressView.progress = Float(webView.estimatedProgress)
-        }
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let url = navigationAction.request.url
-        
-        if let host = url?.host {
-            for website in websites {
-                if host.contains(website){
-                    decisionHandler(.allow)
-                    return
-                }
+        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        vc.addAction(UIAlertAction(title: "Add", style: .default, handler: { (alert) in
+            let textField = vc.textFields![0]
+            if textField.text!.count > 0 {
+                self.websites.append(textField.text!)
+                self.tableView.reloadData()
             }
-        }
-        
-        decisionHandler(.cancel)
+        }))
+        present(vc, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return websites.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WebCell", for: indexPath)
+        cell.textLabel?.text = websites[indexPath.row]
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(identifier: "WebView") as? WebViewController{
+            vc.webUrl = websites[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+   
 }
 
