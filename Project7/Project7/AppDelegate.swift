@@ -18,7 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(identifier: "NavController")
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
+            let vc1 = storyboard.instantiateViewController(identifier: "NavController")
+            vc1.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
             tabBarController.viewControllers?.append(vc)
+            tabBarController.viewControllers?.append(vc1)
         }
         
         return true

@@ -9,16 +9,26 @@ import UIKit
 
 class ViewController: UITableViewController {
     var petitions = [Petition]()
+    var searchPetitions = [Petition]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchResults))
+        
         let urlString: String
         if navigationController?.tabBarItem.tag == 0 {
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
-        } else {
+        } else if navigationController?.tabBarItem.tag == 1 {
             urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
+        }else {
+            urlString = "https://www.whitehouse.gov"
+            let ac = UIAlertController(title: "Whitehouse", message: "Don't know URL", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title:"OK", style: .default))
+            present(ac, animated: true)
         }
+        
+        print("2222")
         
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
@@ -28,6 +38,32 @@ class ViewController: UITableViewController {
         }
         
         showError()
+    }
+    
+    @objc func searchResults(){
+        let ac = UIAlertController(title: "Search title", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak self, weak ac] _ in
+            guard let title = ac?.textFields?[0].text else { return }
+            self?.submit(title)
+        }
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
+    
+    func submit(_ title: String){
+        searchPetitions.removeAll(keepingCapacity: true)
+        for item in petitions {
+            if item.title.contains(title) || item.body.contains(title){
+                searchPetitions.append(item)
+            }
+        }
+        if searchPetitions.isEmpty {
+            let ac = UIAlertController(title: "Well", message: "没有找到你要的结果", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title:"OK", style: .default))
+            present(ac, animated: true)
+        }
+        tableView.reloadData()
     }
     
     func showError() {
@@ -46,12 +82,12 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+        return searchPetitions.count > 0 ? searchPetitions.count : petitions.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let petition = petitions[indexPath.row]
+        let petition = searchPetitions.count > 0 ? searchPetitions[indexPath.row] : petitions[indexPath.row]
         cell.textLabel?.text = petition.title
         cell.detailTextLabel?.text = petition.body
         return cell
