@@ -27,12 +27,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var ballName = ["ballBlue","ballCyan","ballGreen","ballGrey","ballPurple","ballRed","ballYellow"]
+    
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: 512, y: 384)
         background.blendMode = .replace
         background.zPosition = -1
         addChild(background)
+        
+        if let snowFile = SKEmitterNode(fileNamed: "snow"){
+            snowFile.position = CGPoint(x: 0, y: 768)
+            addChild(snowFile)
+        }
         
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         scoreLabel.text = "Score: 0"
@@ -91,7 +98,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 box.physicsBody?.isDynamic = false
                 addChild(box)
             }else{
-                let ball = SKSpriteNode(imageNamed: "ballRed")
+                let random = Int.random(in: 0...ballName.count-1)
+                let ball = SKSpriteNode(imageNamed: ballName[random])
                 ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
                 ball.physicsBody?.restitution = 0.4
                 ball.physicsBody?.contactTestBitMask = ball.physicsBody?.collisionBitMask ?? 0
@@ -151,6 +159,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func destroy(ball: SKNode){
+       
+        if let fireParticles = SKEmitterNode(fileNamed: "FireParticles"){
+            fireParticles.position = ball.position
+            addChild(fireParticles)
+        }
+        
         ball.removeFromParent()
     }
     
