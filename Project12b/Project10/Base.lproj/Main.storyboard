@@ -44,6 +44,7 @@
                                     </subviews>
                                 </collectionViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="customSize" width="140" height="180"/>
                                 <connections>
                                     <outlet property="imageView" destination="Nmj-J7-uOG" id="E2i-vH-qRu"/>
                                     <outlet property="name" destination="U05-b5-usG" id="E01-Uo-Pph"/>

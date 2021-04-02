@@ -104,6 +104,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         let imageName = UUID().uuidString
         print(imageName)
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        print(imagePath)
         
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
             try? jpegData.write(to: imagePath)
@@ -137,6 +138,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
             self?.people.remove(at: indexPath.row)
+            self?.save()
             self?.collectionView.reloadData()
         }))
         
