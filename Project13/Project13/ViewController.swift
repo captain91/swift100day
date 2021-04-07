@@ -12,6 +12,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate & UINavi
 
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var intensity: UISlider!
+    @IBOutlet var radius: UISlider!
+    @IBOutlet var scale: UISlider!
+    @IBOutlet var center: UISlider!
+    
+    @IBOutlet var changeBtn: UIButton!
+    
     var currentImage: UIImage!
     
     var context: CIContext!
@@ -68,6 +74,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate & UINavi
     func setFilter(action:UIAlertAction){
         guard currentImage != nil else { return }
         guard let actionTitle = action.title else { return }
+        changeBtn.setTitle(actionTitle, for: .normal)
         
         currentFilter = CIFilter(name: actionTitle)
         
@@ -78,29 +85,47 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate & UINavi
     }
     
     @IBAction func save(_ sender: Any) {
-        guard let saveImage = imageView.image else { return }
+        guard let saveImage = imageView.image else {
+            let ac = UIAlertController(title: "Save error", message: "this's not image to save,please add a image", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true, completion: nil)
+            return
+        }
         UIImageWriteToSavedPhotosAlbum(saveImage, self, #selector(image), nil)
     }
     
     @IBAction func intensityChanged(_ sender: Any) {
+//        currentFilter.setValue(intensity.value, forKey: kCIInputIntensityKey)
+        applyProcessing()
+    }
+    @IBAction func radiusChanged(_ sender: Any) {
+//        currentFilter.setValue(radius.value * 200, forKey: kCIInputRadiusKey)
+        applyProcessing()
+    }
+    @IBAction func scaleChanged(_ sender: Any) {
+//        currentFilter.setValue(scale.value * 10, forKey: kCIInputScaleKey)
+        applyProcessing()
+    }
+    @IBAction func centerChanged(_ sender: Any) {
+//        currentFilter.setValue(CIVector(x: currentImage.size.width / 2, y: currentImage.size.height / 2), forKey: kCIInputCenterKey)
         applyProcessing()
     }
     
     func applyProcessing(){
         let inputKeys = currentFilter.inputKeys
-        
+
         if inputKeys.contains(kCIInputIntensityKey) {
             currentFilter.setValue(intensity.value, forKey: kCIInputIntensityKey)
         }
-        
+
         if inputKeys.contains(kCIInputRadiusKey){
-            currentFilter.setValue(intensity.value * 200, forKey: kCIInputRadiusKey)
+            currentFilter.setValue(radius.value * 200, forKey: kCIInputRadiusKey)
         }
-        
+
         if inputKeys.contains(kCIInputScaleKey) {
-            currentFilter.setValue(intensity.value * 10, forKey: kCIInputScaleKey)
+            currentFilter.setValue(scale.value * 10, forKey: kCIInputScaleKey)
         }
-        
+
         if inputKeys.contains(kCIInputCenterKey) {
             currentFilter.setValue(CIVector(x: currentImage.size.width / 2, y: currentImage.size.height / 2), forKey: kCIInputCenterKey)
         }
