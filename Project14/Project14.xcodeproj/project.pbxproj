@@ -16,6 +16,9 @@
 		FBCC15AE261E9BAF004B1C30 /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = FBCC15AC261E9BAF004B1C30 /* whack.caf */; };
 		FBCC15AF261E9BAF004B1C30 /* whackBad.caf in Resources */ = {isa = PBXBuildFile; fileRef = FBCC15AD261E9BAF004B1C30 /* whackBad.caf */; };
 		FBCC15B2261E9D70004B1C30 /* WhackSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCC15B1261E9D70004B1C30 /* WhackSlot.swift */; };
+		FBCC15B6261EF2E9004B1C30 /* gameover.caf in Resources */ = {isa = PBXBuildFile; fileRef = FBCC15B5261EF2E9004B1C30 /* gameover.caf */; };
+		FBCC15B9261EF50D004B1C30 /* smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = FBCC15B8261EF50D004B1C30 /* smoke.sks */; };
+		FBCC15C0261EF578004B1C30 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = FBCC15BF261EF578004B1C30 /* spark.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		FBCC15AC261E9BAF004B1C30 /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = whack.caf; path = "../../HackingWithSwift-main/Classic/project14-files/Content/whack.caf"; sourceTree = "<group>"; };
 		FBCC15AD261E9BAF004B1C30 /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = whackBad.caf; path = "../../HackingWithSwift-main/Classic/project14-files/Content/whackBad.caf"; sourceTree = "<group>"; };
 		FBCC15B1261E9D70004B1C30 /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
+		FBCC15B5261EF2E9004B1C30 /* gameover.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameover.caf; sourceTree = "<group>"; };
+		FBCC15B8261EF50D004B1C30 /* smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = smoke.sks; sourceTree = "<group>"; };
+		FBCC15BF261EF578004B1C30 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +76,11 @@
 				FBCC159E261E9ADF004B1C30 /* Main.storyboard */,
 				FBCC15A1261E9AE2004B1C30 /* Assets.xcassets */,
 				FBCC15A3261E9AE2004B1C30 /* Info.plist */,
+				FBCC15B8261EF50D004B1C30 /* smoke.sks */,
+				FBCC15BF261EF578004B1C30 /* spark.sks */,
 				FBCC15AC261E9BAF004B1C30 /* whack.caf */,
 				FBCC15AD261E9BAF004B1C30 /* whackBad.caf */,
+				FBCC15B5261EF2E9004B1C30 /* gameover.caf */,
 			);
 			path = Project14;
 			sourceTree = "<group>";
@@ -133,11 +142,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBCC15B6261EF2E9004B1C30 /* gameover.caf in Resources */,
+				FBCC15C0261EF578004B1C30 /* spark.sks in Resources */,
 				FBCC15AF261E9BAF004B1C30 /* whackBad.caf in Resources */,
 				FBCC15A0261E9ADF004B1C30 /* Main.storyboard in Resources */,
 				FBCC1597261E9ADF004B1C30 /* GameScene.sks in Resources */,
 				FBCC15A2261E9AE2004B1C30 /* Assets.xcassets in Resources */,
 				FBCC15AE261E9BAF004B1C30 /* whack.caf in Resources */,
+				FBCC15B9261EF50D004B1C30 /* smoke.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
