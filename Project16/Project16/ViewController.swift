@@ -33,7 +33,7 @@ class ViewController: UIViewController ,MKMapViewDelegate{
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: indentifier)
             annotationView?.canShowCallout = true
-            
+            annotationView?.tintColor = .red
             let btn = UIButton(type: .detailDisclosure)
             annotationView?.rightCalloutAccessoryView = btn
         }else{
