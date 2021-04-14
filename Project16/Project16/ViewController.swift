@@ -14,6 +14,8 @@ class ViewController: UIViewController ,MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(choseMapType))
+        
         let london = Capital(title: "London", coordinate: CLLocationCoordinate2D(latitude: 51.50722, longitude: -0.1275), info: "Home to the 2012 Summer Olympics")
         let oslo = Capital(title: "Oslo", coordinate: CLLocationCoordinate2D(latitude: 59.95, longitude: 10.75), info: "Founded over a thousand years ago.")
         let paris = Capital(title: "Paris", coordinate: CLLocationCoordinate2D(latitude: 48.8567, longitude: 2.3508), info: "Often called the City of Light.")
@@ -23,17 +25,27 @@ class ViewController: UIViewController ,MKMapViewDelegate{
         mapView.addAnnotations([london,oslo,paris,rome,washington])
         // Do any additional setup after loading the view.
     }
+    
+    @objc func choseMapType(){
+        let ac = UIAlertController(title: "Chose Type", message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "stadart", style: .default, handler: { (ac) in
+            self.mapView.mapType = .hybrid
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true, completion: nil)
+    }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is Capital else { return nil }
         
         let indentifier = "Capital"
         
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: indentifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: indentifier) as? MKPinAnnotationView
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: indentifier)
             annotationView?.canShowCallout = true
-            annotationView?.tintColor = .red
+//            annotationView?.tintColor = .red
+            annotationView?.pinTintColor = .brown
             let btn = UIButton(type: .detailDisclosure)
             annotationView?.rightCalloutAccessoryView = btn
         }else{
